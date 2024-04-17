@@ -12,6 +12,9 @@
 ## Description
 This is the backend code to for wedding-frontend. It is still a work in progress but should be finished soon. It uses the laravel framework. It fetches the images (stored in aws) for the gallery from MySQL Workbench, It fetches the card details when the user clicks on a card. It also sends emails.
 
+## Frontend of this project
+https://github.com/katiedoherty1996/wedding-frontend
+
 ## Command To Run
 php artisan serve
 
