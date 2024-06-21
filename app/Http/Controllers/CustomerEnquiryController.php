@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CardDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\CustomerEnquiryMail;
+use App\Mail\CustomerEnquiryMailForCard;
 use App\Models\Card;
 
 class CustomerEnquiryController extends Controller
@@ -59,10 +59,10 @@ class CustomerEnquiryController extends Controller
         // Check if the card details are retrieved successfully
         if ($cardDetails) {
             // Create an instance of the CustomerEnquiryMail Mailable class
-            $mail = new CustomerEnquiryMail($cardDetails);
+            $mail = new CustomerEnquiryMailForCard($cardDetails);
 
             // Send the email
-            Mail::to('kdoherty@mtx.ie')->send($mail);
+            Mail::to('katiedoherty222@gmail.com')->send($mail);
 
             // Return success message
             return response()->json(['message' => 'Email sent successfully']);

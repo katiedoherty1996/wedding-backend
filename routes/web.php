@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\S3ImageController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CustomerEnquiryController;
+use App\Http\Controllers\SendEnquiryController;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -30,4 +31,11 @@ Route::get('/weddingcards', [CardController::class, 'index']);
 // Route::get('/products', 'ProductController@index');
 
 Route::get('/customerenquirymail', [CustomerEnquiryController::class, 'sendEmailWithCardDetails']);
+// Route::post('/sendenquiry', [SendEnquiry::class, 'submit']);
+
+Route::post('/sendenquiry', [SendEnquiryController::class, 'sendEnquiry']);
+
+Route::get('/preview-email', function () {
+    return view('emails.customerEnquiry');
+});
 

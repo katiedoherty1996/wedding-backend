@@ -11,7 +11,7 @@ class CardController extends Controller
 {
     public function index()
     {
-        $cards = Card::all();
+        $cards = Card::whereNull('deletedDateTime')->get();
          // Transform the cards data and rename the columns
          $transformedCards = $cards->map(function ($card) {
             return [
@@ -36,10 +36,12 @@ class CardController extends Controller
         $cardDetailsObject->price       = null;
         $cardDetailsObject->images      = null;
 
-        $card                           = Card::find($id);
-        $cardDetailsObject->cardName    = $card->cardName;
-        $cardDetailsObject->description = $card->description;
-        $cardDetailsObject->price       = $card->price;
+        $card                              = Card::find($id);
+        $cardDetailsObject->cardName       = $card->cardName;
+        $cardDetailsObject->description    = $card->description;
+        $cardDetailsObject->price          = $card->price;
+        $cardDetailsObject->priceHighGrade = $card->priceHighGrade;
+        $cardDetailsObject->priceLowGrade  = $card->priceLowGrade;
 
         if (!$card) {
             return response()->json(['error' => 'Card not found'], 404);

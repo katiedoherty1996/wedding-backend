@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\CardController;
-use App\Http\Controllers\CustomerEnquiryController;
+use App\Http\Controllers\CardPaperController;
+use App\Http\Controllers\SendEnquiryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +33,9 @@ Route::get('/card', function (Request $request) {
 Route::get('/weddingcards', [CardController::class, 'index']);
 
 Route::get('/weddingcarddetails', [CardController::class, 'getWeddingCardDetails']);
+
+Route::get('/cardpapertypes', [CardPaperController::class, 'index']);
+
+Route::post('/sendenquiry', [SendEnquiryController::class, 'sendEnquiry']);
 
 // Route::post('/customerenquirymail', [CustomerEnquiryController::class, 'sendEmailWithCardDetails']);

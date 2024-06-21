@@ -4,14 +4,17 @@ namespace App\Mail;
 
 use App\Models\Card;
 use App\Models\CardDetails;
+use App\Models\CardPaper;
 use Illuminate\Bus\Queueable;
+use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
+use Symfony\Component\Process\Process;
 
-class CustomerEnquiryMail extends Mailable
+class CustomerEnquiryMailForCard extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,9 +23,10 @@ class CustomerEnquiryMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(Card $cardDetails)
+    public function __construct(Card $cardDetails, Request $request)
     {
         $this->cardDetails = $cardDetails;
+        $this->request     = $request;
     }
 
     /**
@@ -31,7 +35,8 @@ class CustomerEnquiryMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('hello@example.com', 'Katie Doherty'),
+            from: new Address('katiedoherty222@gmail.com', 'Katie Doherty'),
+            replyTo: [new Address($this->request->email)],
             subject: 'Enquiry About A Card',
         );
     }
@@ -44,9 +49,14 @@ class CustomerEnquiryMail extends Mailable
         return new Content(
             view: 'emails.customerEnquiry',
             with: [
-                'cardName' => $this->cardDetails->cardName,
-                'cardImage' => $this->cardDetails->mainImage,
-                'cardPrice' => $this->cardDetails->price,
+                'cardId'          => $this->cardDetails->id,
+                'cardName'        => $this->cardDetails->cardName,
+                'cardImage'       => $this->cardDetails->mainImage,
+                'cardPrice'       => $this->request->cardPaper['cardPaperName'],
+                'name'            => $this->request->name,
+                'email'           => $this->request->email,
+                'phoneNumber'     => $this->request->phoneNumber,
+                'customerMessage' => $this->request->customerMessage,
             ],
         );
     }
