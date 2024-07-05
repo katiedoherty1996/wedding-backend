@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CardPaperController;
+use App\Http\Controllers\InvitationsCategoriesController;
 use App\Http\Controllers\SendEnquiryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,4 +39,4 @@ Route::get('/cardpapertypes', [CardPaperController::class, 'index']);
 
 Route::post('/sendenquiry', [SendEnquiryController::class, 'sendEnquiry']);
 
-// Route::post('/customerenquirymail', [CustomerEnquiryController::class, 'sendEmailWithCardDetails']);
+Route::get('/invitationscategories', [InvitationsCategoriesController::class, 'getInvitationCategories']);

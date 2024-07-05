@@ -19,6 +19,8 @@ class CardController extends Controller
                 'invitationName' => $card->cardName,
                 'image'          => $card->mainImage,
                 'price'          => $card->price,
+                'priceLowGrade'  => $card->priceLowGrade,
+                'priceHighGrade' => $card->priceHighGrade,
                 'categoryId'     => $card->categoryId,
                 'pageNo'         => null,
                 // Add more fields as needed
@@ -38,7 +40,7 @@ class CardController extends Controller
 
         $card                              = Card::find($id);
         $cardDetailsObject->cardName       = $card->cardName;
-        $cardDetailsObject->description    = $card->description;
+        $cardDetailsObject->description    = $card->cardDescription;
         $cardDetailsObject->price          = $card->price;
         $cardDetailsObject->priceHighGrade = $card->priceHighGrade;
         $cardDetailsObject->priceLowGrade  = $card->priceLowGrade;

@@ -19,23 +19,12 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/images', [S3ImageController::class, 'getAllImages']);
 
 Route::get('/weddingcards', [CardController::class, 'index']);
-// Route::post('/customerenquirymail/{cardId}', [CardController::class, 'sendEmailWithCardDetails']);
-
-// Route::get('/products', 'ProductController@index');
 
 Route::get('/customerenquirymail', [CustomerEnquiryController::class, 'sendEmailWithCardDetails']);
-// Route::post('/sendenquiry', [SendEnquiry::class, 'submit']);
 
 Route::post('/sendenquiry', [SendEnquiryController::class, 'sendEnquiry']);
-
-Route::get('/preview-email', function () {
-    return view('emails.customerEnquiry');
-});
 
