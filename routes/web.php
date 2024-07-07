@@ -26,5 +26,5 @@ Route::get('/weddingcards', [CardController::class, 'index']);
 
 Route::get('/customerenquirymail', [CustomerEnquiryController::class, 'sendEmailWithCardDetails']);
 
-Route::post('/sendenquiry', [SendEnquiryController::class, 'sendEnquiry']);
+// Route::post('/sendenquiry', [SendEnquiryController::class, 'sendEnquiry']);
 

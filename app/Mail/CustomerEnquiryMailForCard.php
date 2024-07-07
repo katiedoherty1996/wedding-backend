@@ -23,7 +23,7 @@ class CustomerEnquiryMailForCard extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(Card $cardDetails, Request $request)
+    public function __construct(Card $cardDetails = null, Request $request)
     {
         $this->cardDetails = $cardDetails;
         $this->request     = $request;
@@ -49,10 +49,10 @@ class CustomerEnquiryMailForCard extends Mailable
         return new Content(
             view: 'emails.customerEnquiry',
             with: [
-                'cardId'          => $this->cardDetails->id,
-                'cardName'        => $this->cardDetails->cardName,
-                'cardImage'       => $this->cardDetails->mainImage,
-                'cardPrice'       => $this->request->cardPaper['cardPaperName'],
+                'cardId'          => !empty($this->cardDetails) ? $this->cardDetails->id : null,
+                'cardName'        => !empty($this->cardDetails) ? $this->cardDetails->cardName : null,
+                'cardImage'       => !empty($this->cardDetails) ? $this->cardDetails->mainImage : null,
+                'cardPrice'       => !empty($this->cardDetails) ? $this->request->cardPaper['cardPaperName'] : null,
                 'name'            => $this->request->name,
                 'email'           => $this->request->email,
                 'phoneNumber'     => $this->request->phoneNumber,

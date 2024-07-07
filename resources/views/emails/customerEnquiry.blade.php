@@ -30,9 +30,11 @@
 
     <!--card details section -->
     <div style="box-shadow: 0 0 10px rgba(0,0,0,0.2); align-items:center; margin: 20px auto; padding: 20px; max-width: 600px;">
-        <div style="text-align: center;">
-            <img src="{{ $cardImage }}" alt="image of card" style=" border: 10px solid #6b7d73; max-height:300px;">
-        </div>
+        @if (!empty($cardId))
+            <div style="text-align: center;">
+                <img src="{{ $cardImage }}" alt="image of card" style=" border: 10px solid #6b7d73; max-height:300px;">
+            </div>
+        @endif
         <div style="text-align:center;">
             <!--Contact Details-->
             <h3>Contact Details</h3>
@@ -41,13 +43,17 @@
             <p>Phone: {{ $phoneNumber }}</p>
 
             <!--Card Details-->
-            <h3>Card Name: {{ $cardName }}</h3>
-            <p>Price: {{ $cardPrice }}</p>
+            @if (!empty($cardName) && !empty($cardPrice))
+                <h3>Card Name: {{ $cardName }}</h3>
+                <p>Price: {{ $cardPrice }}</p>
+            @endif
         </div>
 
-        <a href="{{ 'http://localhost:9000/#/carddetails?id=' . $cardId }}" style="text-decoration: none;">
-            <div style="transition: background-color 0.3s ease; font-size: 16px; cursor: pointer; border-radius: 4px; border: none; text-decoration: none; color: white; margin: 0 auto; width: 50%; background-color: #6b7d73; text-align: center; padding: 10px 20px; display: block;" class="button">See More Card Details</div>
-        </a>
+        @if (!empty($cardId))
+            <a href="{{ 'http://localhost:9000/#/carddetails?id=' . $cardId }}" style="text-decoration: none;">
+                <div style="transition: background-color 0.3s ease; font-size: 16px; cursor: pointer; border-radius: 4px; border: none; text-decoration: none; color: white; margin: 0 auto; width: 50%; background-color: #6b7d73; text-align: center; padding: 10px 20px; display: block;" class="button">See More Card Details</div>
+            </a>
+        @endif
     </div>
     
 </body>

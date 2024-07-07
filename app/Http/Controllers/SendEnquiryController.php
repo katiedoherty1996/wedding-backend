@@ -12,18 +12,14 @@ class SendEnquiryController extends Controller
 {
     public function sendEnquiry(Request $request)
     {
-        // $request->validate([
-        //     'email' => 'required|email',
-        //     'message' => 'required',
-        // ]);
+        $request->validate([
+            'name'            => 'required',
+            'phoneNumber'     => 'required',
+            'email'           => 'required',
+            'customerMessage' => 'required',
+        ]);
 
         $cardId = !empty($request->cardId) ? $request->cardId : null;
-
-        if(!empty($cardId)){
-            Card::sendCustomerCardEnquiry($cardId, $request);
-        } else{
-            return response()->json(['message' => 'Email Not Sent']);
-
-        }
+        Card::sendCustomerCardEnquiry($cardId, $request);
     }
 }

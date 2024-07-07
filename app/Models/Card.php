@@ -16,25 +16,23 @@ class Card extends Model
         return $this->hasMany(CardDetails::class, 'cardId', 'id');
     }
 
-    public static function sendCustomerCardEnquiry($cardId, Request $request){
+    public static function sendCustomerCardEnquiry($cardId = null, Request $request){
         try{
+            $cardDetails = null;
+            
             // Retrieve the card details from the database
-            $cardDetails = Card::find($cardId);
-
-            // Check if the card details are retrieved successfully
-            if ($cardDetails) {
-                // Create an instance of the CustomerEnquiryMail Mailable class
-                $mail = new CustomerEnquiryMailForCard($cardDetails, $request);
-
-                // Send the email
-                Mail::to('katiedoherty222@gmail.com')->send($mail);
-
-                // Return success message
-                return response()->json(['message' => 'Email sent successfully', 'sent' => true]);
-            } else {
-                // Return error message if card details are not found
-                return response()->json(['error' => 'Card details not found', 'sent' => false], 404);
+            if(!empty($cardId)){
+                $cardDetails = Card::find($cardId);
             }
+
+            // Create an instance of the CustomerEnquiryMail Mailable class
+            $mail = new CustomerEnquiryMailForCard($cardDetails, $request);
+
+            // Send the email
+            Mail::to('katiedoherty222@gmail.com')->send($mail);
+
+            // Return success message
+            return response()->json(['message' => 'Email sent successfully', 'sent' => true]);
 
         } catch(SesException $e){
             // Return success message
