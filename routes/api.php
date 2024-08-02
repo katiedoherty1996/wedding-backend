@@ -3,6 +3,7 @@
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CardPaperController;
 use App\Http\Controllers\InvitationsCategoriesController;
+use App\Http\Controllers\MassBookletController;
 use App\Http\Controllers\SendEnquiryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,10 @@ Route::get('/card', function (Request $request) {
 });
 
 Route::get('/weddingcards', [CardController::class, 'index']);
+
+Route::get('/massbooklets', [MassBookletController::class, 'index']);
+
+Route::get('/thankyoucards', [ThankYouCardController::class, 'index']);
 
 Route::get('/weddingcarddetails', [CardController::class, 'getWeddingCardDetails']);
 

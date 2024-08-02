@@ -16,6 +16,18 @@ class Card extends Model
         return $this->hasMany(CardDetails::class, 'cardId', 'id');
     }
 
+    // Define the relationship with the Price model
+    public function prices()
+    {
+        return $this->hasMany(Price::class, 'productId', 'id');
+    }
+
+    // Scope to filter cards where deletedDateTime is null
+    public function scopeActive($query)
+    {
+        return $query->whereNull('deletedDateTime');
+    }
+
     public static function sendCustomerCardEnquiry($cardId = null, Request $request){
         try{
             $cardDetails = null;

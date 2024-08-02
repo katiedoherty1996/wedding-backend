@@ -5,13 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use App\Models\CardDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use stdClass;
 
 class CardController extends Controller
 {
     public function index()
     {
-        $cards = Card::whereNull('deletedDateTime')->get();
+        // Fetch all fields from both cards and prices
+        $cards = DB::table('cards')
+        ->leftJoin('prices', function ($join) {
+            $join->on('cards.id', '=', 'prices.productId')
+                ->whereNull('prices.deletedDateTime')
+                ->where('prices.productTypeId', 1);
+        })
+        ->whereNull('cards.deletedDateTime')
+        ->select('cards.*', 'prices.*') // Select all fields from both tables
+        ->get();
+        
          // Transform the cards data and rename the columns
          $transformedCards = $cards->map(function ($card) {
             return [
@@ -19,8 +30,8 @@ class CardController extends Controller
                 'invitationName' => $card->cardName,
                 'image'          => $card->mainImage,
                 'price'          => $card->price,
-                'priceLowGrade'  => $card->priceLowGrade,
-                'priceHighGrade' => $card->priceHighGrade,
+                'priceLowGrade'  => $card->priceLow,
+                'priceHighGrade' => $card->priceHigh,
                 'categoryId'     => $card->categoryId,
                 'pageNo'         => null,
                 // Add more fields as needed
