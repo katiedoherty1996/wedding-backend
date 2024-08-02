@@ -22,6 +22,17 @@ class Card extends Model
         return $this->hasMany(Price::class, 'productId', 'id');
     }
 
+    /**
+     * get tthe prices for a singular wedding invitation
+     *
+     * @return void
+     */
+    public function weddingInvitationCardPrices(){
+        return $this->hasOne(Price::class, 'productId', 'id')
+                    ->whereNull('deletedDateTime')
+                    ->where('productTypeId', ProductType::WEDDING_INVITATIONS);
+    }
+
     // Scope to filter cards where deletedDateTime is null
     public function scopeActive($query)
     {
