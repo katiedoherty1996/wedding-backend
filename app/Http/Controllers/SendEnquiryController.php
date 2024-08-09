@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Card;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Aws\Ses\SesClient;
-use Aws\Ses\Exception\SesException;
 
 class SendEnquiryController extends Controller
 {
@@ -20,6 +17,6 @@ class SendEnquiryController extends Controller
         ]);
 
         $cardId = !empty($request->cardId) ? $request->cardId : null;
-        Card::sendCustomerCardEnquiry($cardId, $request);
+        Product::sendCustomerCardEnquiry($cardId, $request);
     }
 }

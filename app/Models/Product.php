@@ -7,13 +7,13 @@ use Aws\Ses\Exception\SesException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-class Card extends Model
+class Product extends Model
 {
-    protected $table = 'cards';
+    protected $table = 'products';
 
-    public function cardDetails()
+    public function productDetails()
     {
-        return $this->hasMany(CardDetails::class, 'cardId', 'id');
+        return $this->hasMany(ProductDetails::class, 'productId', 'id');
     }
 
     // Define the relationship with the Price model
@@ -41,15 +41,15 @@ class Card extends Model
 
     public static function sendCustomerCardEnquiry($cardId = null, Request $request){
         try{
-            $cardDetails = null;
+            $productDetails = null;
             
-            // Retrieve the card details from the database
+            // Retrieve the product details from the database
             if(!empty($cardId)){
-                $cardDetails = Card::find($cardId);
+                $productDetails = Product::find($cardId);
             }
 
             // Create an instance of the CustomerEnquiryMail Mailable class
-            $mail = new CustomerEnquiryMailForCard($cardDetails, $request);
+            $mail = new CustomerEnquiryMailForCard($productDetails, $request);
 
             // Send the email
             Mail::to('katiedoherty222@gmail.com')->send($mail);

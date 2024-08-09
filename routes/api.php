@@ -4,6 +4,7 @@ use App\Http\Controllers\CardController;
 use App\Http\Controllers\CardPaperController;
 use App\Http\Controllers\InvitationsCategoriesController;
 use App\Http\Controllers\MassBookletController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SendEnquiryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,22 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/card', function (Request $request) {
-    $card = (object) [
-        'title' => 'card1',
-        'description' => 'card description'
-    ];
+Route::get('/products', [ProductController::class, 'index']);
 
-    return response()->json($card);
-});
+Route::get('/massbooklets', [ProductController::class, 'index']);
 
-Route::get('/weddingcards', [CardController::class, 'index']);
+Route::get('/thankyoucards', [ProductController::class, 'index']);
 
-Route::get('/massbooklets', [MassBookletController::class, 'index']);
-
-Route::get('/thankyoucards', [ThankYouCardController::class, 'index']);
-
-Route::get('/weddingcarddetails', [CardController::class, 'getWeddingCardDetails']);
+Route::get('/weddingcarddetails', [ProductController::class, 'getProductDetails']);
 
 Route::get('/cardpapertypes', [CardPaperController::class, 'index']);
 

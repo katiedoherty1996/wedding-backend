@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Card;
-use App\Models\CardDetails;
 use App\Models\CardPaper;
 use Illuminate\Http\Request;
 use stdClass;

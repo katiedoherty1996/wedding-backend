@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Enquiry About A Card</title>
+    <title>Customer Enquiry About A Product</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Allura&family=Bad+Script&family=Dancing+Script&family=Lora&family=Quattrocento+Sans&display=swap" rel="stylesheet">
 
@@ -28,11 +28,11 @@
         <div>{{ $customerMessage }}</div>
     </div>
 
-    <!--card details section -->
+    <!--product details section -->
     <div style="box-shadow: 0 0 10px rgba(0,0,0,0.2); align-items:center; margin: 20px auto; padding: 20px; max-width: 600px;">
-        @if (!empty($cardId))
+        @if (!empty($productId))
             <div style="text-align: center;">
-                <img src="{{ $cardImage }}" alt="image of card" style=" border: 10px solid #6b7d73; max-height:300px;">
+                <img src="{{ $image }}" alt="image of product" style=" border: 10px solid #6b7d73; max-height:300px;">
             </div>
         @endif
         <div style="text-align:center;">
@@ -42,16 +42,16 @@
             <p>Email: {{ $email }}</p>
             <p>Phone: {{ $phoneNumber }}</p>
 
-            <!--Card Details-->
-            @if (!empty($cardName) && !empty($cardPrice))
-                <h3>Card Name: {{ $cardName }}</h3>
-                <p>Price: {{ $cardPrice }}</p>
+            <!--Product Details-->
+            @if (!empty($name) && !empty($price))
+                <h3>Product Name: {{ $productName }}</h3>
+                <p>Price: {{ $price }}</p>
             @endif
         </div>
 
-        @if (!empty($cardId))
-            <a href="{{ 'http://localhost:9000/#/carddetails?id=' . $cardId }}" style="text-decoration: none;">
-                <div style="transition: background-color 0.3s ease; font-size: 16px; cursor: pointer; border-radius: 4px; border: none; text-decoration: none; color: white; margin: 0 auto; width: 50%; background-color: #6b7d73; text-align: center; padding: 10px 20px; display: block;" class="button">See More Card Details</div>
+        @if (!empty($productId))
+            <a href="{{ 'http://localhost:9000/#/productdetails?id=' . $productId }}" style="text-decoration: none;">
+                <div style="transition: background-color 0.3s ease; font-size: 16px; cursor: pointer; border-radius: 4px; border: none; text-decoration: none; color: white; margin: 0 auto; width: 50%; background-color: #6b7d73; text-align: center; padding: 10px 20px; display: block;" class="button">See More Product Details</div>
             </a>
         @endif
     </div>

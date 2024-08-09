@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\S3ImageController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CustomerEnquiryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SendEnquiryController;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Mail;
 
 Route::get('/images', [S3ImageController::class, 'getAllImages']);
 
-Route::get('/weddingcards', [CardController::class, 'index']);
+Route::get('/products', [ProductController::class, 'index']);
 
 Route::get('/customerenquirymail', [CustomerEnquiryController::class, 'sendEmailWithCardDetails']);
 

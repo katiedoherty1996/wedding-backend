@@ -2,9 +2,9 @@
 
 namespace App\Mail;
 
-use App\Models\Card;
-use App\Models\CardDetails;
-use App\Models\CardPaper;
+
+use App\Models\Product;
+use App\Models\ProductDetails;
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
@@ -18,14 +18,15 @@ class CustomerEnquiryMailForCard extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $cardDetails;
+    public $productDetails;
+    public $request;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Card $cardDetails = null, Request $request)
+    public function __construct(Product $productDetails = null, Request $request)
     {
-        $this->cardDetails = $cardDetails;
+        $this->productDetails = $productDetails;
         $this->request     = $request;
     }
 
@@ -37,7 +38,7 @@ class CustomerEnquiryMailForCard extends Mailable
         return new Envelope(
             from: new Address('katiedoherty222@gmail.com', 'Katie Doherty'),
             replyTo: [new Address($this->request->email)],
-            subject: 'Enquiry About A Card',
+            subject: 'Enquiry About A Product',
         );
     }
 
@@ -46,13 +47,14 @@ class CustomerEnquiryMailForCard extends Mailable
      */
     public function content(): Content
     {
+        $cardDetailsImage = ProductDetails::find($this->productDetails->mainImageId);
         return new Content(
             view: 'emails.customerEnquiry',
             with: [
-                'cardId'          => !empty($this->cardDetails) ? $this->cardDetails->id : null,
-                'cardName'        => !empty($this->cardDetails) ? $this->cardDetails->cardName : null,
-                'cardImage'       => !empty($this->cardDetails) ? $this->cardDetails->mainImage : null,
-                'cardPrice'       => !empty($this->cardDetails) ? $this->request->cardPaper['cardPaperName'] : null,
+                'productId'          => !empty($this->productDetails) ? $this->productDetails->id : null,
+                'productName'        => !empty($this->productDetails) ? $this->productDetails->name : null,
+                'image'       => !empty($this->productDetails) ? $cardDetailsImage->image : null,
+                'cardPrice'       => !empty($this->productDetails) ? $this->request->cardPaper['cardPaperName'] : null,
                 'name'            => $this->request->name,
                 'email'           => $this->request->email,
                 'phoneNumber'     => $this->request->phoneNumber,

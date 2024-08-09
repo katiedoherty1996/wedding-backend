@@ -10,9 +10,9 @@ class Price extends Model
     // Define the table associated with the model (optional if it follows Laravel naming conventions)
     protected $table = 'prices';
 
-    // Define the relationship with the Card model
-    public function cards()
+    // Define the relationship with the products model
+    public function products()
     {
-        return $this->belongsTo(Card::class, 'productId', 'id');
+        return $this->belongsTo(Product::class, 'productId', 'id');
     }
 }
