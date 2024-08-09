@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Mail\CustomerEnquiryMailForCard;
 use Aws\Ses\Exception\SesException;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -54,15 +55,11 @@ class Product extends Model
             // Send the email
             Mail::to('katiedoherty222@gmail.com')->send($mail);
 
-            // Return success message
-            return response()->json(['message' => 'Email sent successfully', 'sent' => true]);
-
         } catch(SesException $e){
             // Return success message
-            return response()->json(['message' => 'Email did not send', 'sent' => false], 500);
+            throw new Exception('Your message failed to send. Please email mandjdoherty@gmail.com or call (061)383436');
         } catch (\Exception $e) {
-            // Handle all other exceptions
-            return response()->json(['error' => 'Failed to send email. Please try again later.', 'sent' => false], 500);
+            throw new Exception('Your message failed to send. Please email mandjdoherty@gmail.com or call (061)383436');
         }
     }
 }

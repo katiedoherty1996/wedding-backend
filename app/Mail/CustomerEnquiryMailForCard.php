@@ -47,13 +47,15 @@ class CustomerEnquiryMailForCard extends Mailable
      */
     public function content(): Content
     {
-        $cardDetailsImage = ProductDetails::find($this->productDetails->mainImageId);
+        if(!empty($this->productDetails)){
+            $cardDetailsImage = ProductDetails::find($this->productDetails->mainImageId);
+        }
         return new Content(
             view: 'emails.customerEnquiry',
             with: [
-                'productId'          => !empty($this->productDetails) ? $this->productDetails->id : null,
-                'productName'        => !empty($this->productDetails) ? $this->productDetails->name : null,
-                'image'       => !empty($this->productDetails) ? $cardDetailsImage->image : null,
+                'productId'       => !empty($this->productDetails) ? $this->productDetails->id : null,
+                'productName'     => !empty($this->productDetails) ? $this->productDetails->name : null,
+                'image'           => !empty($cardDetailsImage) ? $cardDetailsImage->image : null,
                 'cardPrice'       => !empty($this->productDetails) ? $this->request->cardPaper['cardPaperName'] : null,
                 'name'            => $this->request->name,
                 'email'           => $this->request->email,

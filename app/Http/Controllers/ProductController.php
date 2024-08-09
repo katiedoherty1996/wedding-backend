@@ -19,8 +19,8 @@ class ProductController extends Controller
         //get the product type
         $productType = ProductType::where('productTypeVariable', $productTypeVariable)->first();
 
-        if (!$productType) {
-            return response()->json(['error' => 'Product not found'], 404);
+        if (empty($productType)) {
+            return response()->json(['message' => 'No products avaliable'], 404);
         }
 
         // Fetch all fields from both products and prices
@@ -38,6 +38,10 @@ class ProductController extends Controller
         ->where('products.productTypeId', $productType->id)
         ->select('products.id AS mainProductId', 'products.*', 'prices.*', 'productdetails.image') // Select all fields from both tables
         ->get();
+
+        if($products->isEmpty()){
+            return response()->json(['message' => 'No products avaliable'], 404);
+        }
         
          // Transform the products data and rename the columns
          $transformedCards = $products->map(function ($product) {

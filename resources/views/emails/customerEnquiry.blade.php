@@ -38,7 +38,7 @@
         <div style="text-align:center;">
             <!--Contact Details-->
             <h3>Contact Details</h3>
-            <p>Name: {{$name}}</p>
+            <p>Name: {{ $name }}</p>
             <p>Email: {{ $email }}</p>
             <p>Phone: {{ $phoneNumber }}</p>
 
